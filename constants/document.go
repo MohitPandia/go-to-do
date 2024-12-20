@@ -1,0 +1,77 @@
+package constants
+
+var DocumentCategory = map[string]bool{
+	"VEHICLE":   true,
+	"EDUCATION": true,
+	"IDENTITY":  true,
+	"HEALTH":    true,
+	"TRAVEL":    true,
+	"FINANCE":   true,
+	"OTHERS":    true,
+	"SCANNED":   true, //For backward compatibility
+	"MEDICAL":   true, //For backward compatibility
+}
+
+var DocumentTypeToCategory = map[string]string{
+	"RVCER":   "VEHICLE",
+	"HSCER":   "EDUCATION",
+	"HPCER":   "EDUCATION",
+	"STUID":   "IDENTITY",
+	"VACER":   "HEALTH",
+	"DRVLC":   "IDENTITY",
+	"OTHER":   "",
+	"SCANNED": "", //OTHER and SCANNED are the same. Previously we had SCANNED instead of OTHER. So added SCANNED for backward compatibilty.
+	"CRIPC":   "VEHICLE",
+	"ADHAR":   "IDENTITY",
+	"TWIPC":   "VEHICLE",
+	"SPCER":   "EDUCATION",
+	"CVIPC":   "VEHICLE",
+	"HLIPC":   "HEALTH",
+	"DGCER":   "EDUCATION",
+	"VHTAX":   "VEHICLE",
+	"RATCR":   "IDENTITY",
+	"VOTER":   "IDENTITY",
+	"SSCER":   "EDUCATION",
+	"BPASS":   "TRAVEL",
+	"TETCR":   "EDUCATION",
+	"BTCER":   "IDENTITY",
+	"CCARD":   "FINANCE",
+	"ASTMT":   "FINANCE",
+	"CCST":    "FINANCE",
+	"SSMGR":   "EDUCATION",
+	"CHQC":    "FINANCE",
+	"PANCR":   "IDENTITY",
+	"VHINSC":  "VEHICLE",
+	"CRRPT":   "FINANCE",
+	"DCARD":   "FINANCE",
+	"EPSER":   "FINANCE",
+	"INCER":   "FINANCE",
+	"OSFRM":   "FINANCE",
+	"ITR":     "FINANCE",
+	"HSMGR":   "EDUCATION",
+	"PSPRT":   "TRAVEL",
+	"PECER":   "FINANCE",
+	"IRCER":   "FINANCE",
+	"VISA":    "TRAVEL",
+	"MFSTMT":  "FINANCE",
+	"PVCER":   "FINANCE",
+	"FLTKT":   "TRAVEL",
+	"MYCV":    "EDUCATION",
+	"WLST":    "FINANCE",
+	"PRESC":   "HEALTH",
+	"BSEFSB":  "FINANCE",
+	"NOTES":   "EDUCATION",
+	"CTCER":   "IDENTITY",
+	"CKYCID":  "FINANCE",
+	"LABRP":   "HEALTH",
+	"CMFSB":   "FINANCE",
+	"TVLBKG":  "TRAVEL",
+	"CVLTR":   "EDUCATION",
+	"NSEFSB":  "FINANCE",
+	"HTLBK":   "TRAVEL",
+	"XCER":    "EDUCATION", // added for backward compatiblity
+	"XIICER":  "EDUCATION", // added for backward compatiblity
+	"BIZCRD":  "IDENTITY",
+	"BNKST":   "FINANCE", //only present in rule engine
+	"LBRPT":   "HEALTH",  //only present in rule engine
+}
