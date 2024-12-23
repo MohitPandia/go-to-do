@@ -101,6 +101,10 @@ type DB struct {
 	clone        int
 }
 
+func (db *DB) RecordNotFound(err error) bool {
+	panic("unimplemented")
+}
+
 // Session session config when create session with Session() method
 type Session struct {
 	DryRun                   bool

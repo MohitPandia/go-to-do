@@ -40,7 +40,9 @@ func (u *userHandler) CreateUser(ctx *gin.Context) {
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
 
-///--->
+/* -------------------------------------------------------------------------- */
+/*                                 getAlGetAllUsers                           */
+/* -------------------------------------------------------------------------- */
 
 func (u *userHandler) GetAllUsers(ctx *gin.Context) {
 	// Validate the request
@@ -65,6 +67,10 @@ func (u *userHandler) GetAllUsers(ctx *gin.Context) {
 	finalRes := GetAllUsertransformer(baseRes, users)
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                GetUserByPID                                */
+/* -------------------------------------------------------------------------- */
 
 func (u *userHandler) GetUserByPID(ctx *gin.Context) {
 	// Validate request body
@@ -94,6 +100,9 @@ func (u *userHandler) GetUserByPID(ctx *gin.Context) {
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                 DeleteUser                                 */
+/* -------------------------------------------------------------------------- */
 func (u *userHandler) DeleteUser(ctx *gin.Context) {
 	// Validate request body
 	reqBody, err := validateDeleteUser(ctx)
