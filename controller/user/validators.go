@@ -61,3 +61,61 @@ func validateName(name string) error {
 
 	return nil
 }
+
+func validateGetAllUsers(ctx *gin.Context) (usersvc.GetAllUserObject, error) {
+	var reqBody usersvc.GetAllUserObject
+	var err error
+
+	fmt.Println("in validatior", reqBody)
+
+	// Bind and validate JSON payload
+	err = ctx.ShouldBindJSON(&reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	validate := validator.New()
+	err = validate.Struct(reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	return reqBody, nil
+}
+
+
+func validateGetUserByPID(ctx *gin.Context) (usersvc.GetUserByPIDObject, error) {
+	var reqBody usersvc.GetUserByPIDObject
+	var err error
+
+	err = ctx.ShouldBindJSON(&reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	// Validate using the validator package
+	validate := validator.New()
+	err = validate.Struct(reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	return reqBody, nil
+}
+
+
+func validateDeleteUser(c *gin.Context) (usersvc.DeleteUserObject, error) {
+	var reqBody usersvc.DeleteUserObject
+	var err error
+
+	if err = c.ShouldBindJSON(&reqBody); err != nil {
+		return reqBody, err
+	}
+
+	// Validate that PID is not empty
+	if reqBody.PID == "" {
+		return reqBody, errors.New("user PID is required")
+	}
+
+	return reqBody, nil
+}

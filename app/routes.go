@@ -32,12 +32,10 @@ func MapUrl() {
 	userSvc := usersvc.Handler(userGorm)
 	userHandler := user.Handler(userSvc)
 
-	// orgGorm := orgs.Gorm(gormDB)
-	// orgAccountsGorm := orgaccounts.Gorm(gormDB)
 	router.POST("/api/users/create", userHandler.CreateUser)
-	// router.POST("/api/users/getALl", userHandler.ListUsers)
-	// router.POST("/api/users/getUserbyId", userHandler.GetUserByPID)
-	// router.POST("/api/users/delete", userHandler.DeleteUser)
+	router.GET("/api/users/getAll", userHandler.GetAllUsers)
+	router.GET("/api/users/get-by-pid", userHandler.GetUserByPID)
+	router.POST("/api/users/delete", userHandler.DeleteUser)
 
 	err := router.Run(fmt.Sprintf(":%d", 8080)) // config
 	if err != nil {

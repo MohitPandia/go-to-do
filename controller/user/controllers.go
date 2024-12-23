@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"go-to-do/smerrors"
 	"go-to-do/utils"
 	"net/http"
@@ -39,55 +40,84 @@ func (u *userHandler) CreateUser(ctx *gin.Context) {
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
 
-
-
 ///--->
 
-// func (u *userHandler) ListUsers(ctx *gin.Context) {
-// 	// Fetch users from the service
-// 	baseRes, users, err := u.userSvc.ListUsers(ctx)
-// 	if err != nil {
-// 		smerrors.InternalServer(ctx, err.Error())
-// 		return
-// 	}
+func (u *userHandler) GetAllUsers(ctx *gin.Context) {
+	// Validate the request
+	reqBody, err := validateGetAllUsers(ctx)
+	if err != nil {
+		smerrors.Validation(ctx, err.Error())
+		return
+	}
 
-// 	utils.ReturnJSONStruct(ctx, baseRes)
-// }
+	// Call the service method
+	baseRes, users, err := u.userSvc.GetAllUsers(ctx, reqBody)
+	if err != nil {
+		smerrors.InternalServer(ctx, err.Error())
+		return
+	}
+	if baseRes.StatusCode != http.StatusOK {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
 
+	// Transform the response if needed
+	finalRes := GetAllUsertransformer(baseRes, users)
+	utils.ReturnJSONStruct(ctx, finalRes)
+}
 
-// func (u *userHandler) GetUserByPID(ctx *gin.Context) {
-// 	// Validate the request body
-// 	reqBody, err := validateGetUserById(ctx)
-// 	if err != nil {
-// 		smerrors.Validation(ctx, err.Error())
-// 		return
-// 	}
+func (u *userHandler) GetUserByPID(ctx *gin.Context) {
+	// Validate request body
+	reqBody, err := validateGetUserByPID(ctx)
+	if err != nil {
+		smerrors.Validation(ctx, err.Error())
+		return
+	}
 
-// 	// Fetch user by ID from the service
-// 	baseRes, user, err := u.userSvc.GetUserById(ctx, reqBody.ID)
-// 	if err != nil {
-// 		smerrors.InternalServer(ctx, err.Error())
-// 		return
-// 	}
+	fmt.Println("reqBody", reqBody)
+	// Call the service method
+	baseRes, user, err := u.userSvc.GetUserByPID(ctx, reqBody)
+	if err != nil {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
 
-// 	utils.ReturnJSONStruct(ctx, baseRes)
-// }
+	fmt.Println("baseRes", baseRes)
+	fmt.Println("user", user)
+	if baseRes.StatusCode != http.StatusOK {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
 
+	// Transform the response
+	finalRes := TransformGetUserResponse(baseRes, user)
+	utils.ReturnJSONStruct(ctx, finalRes)
+}
 
-// func (u *userHandler) DeleteUser(ctx *gin.Context) {
-// 	// Validate the request body
-// 	reqBody, err := validateDeleteUser(ctx)
-// 	if err != nil {
-// 		smerrors.Validation(ctx, err.Error())
-// 		return
-// 	}
+func (u *userHandler) DeleteUser(ctx *gin.Context) {
+	// Validate request body
+	reqBody, err := validateDeleteUser(ctx)
+	fmt.Println("reqBody in controller", reqBody)
+	if err != nil {
+		smerrors.Validation(ctx, err.Error())
+		return
+	}
 
-// 	// Delete user in the service
-// 	baseRes, err := u.userSvc.DeleteUser(ctx, reqBody.ID)
-// 	if err != nil {
-// 		smerrors.InternalServer(ctx, err.Error())
-// 		return
-// 	}
+	// Call the service method
+	baseRes, users, err := u.userSvc.DeleteUser(ctx, reqBody)
+	fmt.Println("baseRes in controller", baseRes)
 
-// 	utils.ReturnJSONStruct(ctx, baseRes)
-// }
+	if err != nil {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
+	if baseRes.StatusCode != http.StatusOK {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
+
+	// Return success response
+	finalRes := DeleteUserTransformer(baseRes, users)
+
+	utils.ReturnJSONStruct(ctx, finalRes)
+}
