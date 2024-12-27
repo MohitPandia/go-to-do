@@ -81,3 +81,20 @@ func DeleteUserTransformer(baseRes models.BaseResponse, user entities.Users) mod
 	return finalRes
 
 }
+
+func UpdateUserTransformer(baseRes models.BaseResponse, updatedUser entities.Users) models.BaseResponse {
+	var finalRes models.BaseResponse
+	var dataRes entities.Users
+
+	dataRes.PID = updatedUser.PID
+	dataRes.Name = updatedUser.Name
+	dataRes.Email = updatedUser.Email
+	// Optionally add more fields if you want to include other fields like "Password"
+
+	finalRes.Success = baseRes.Success
+	finalRes.Message = baseRes.Message
+	finalRes.StatusCode = baseRes.StatusCode
+	finalRes.Data = dataRes
+
+	return finalRes
+}
