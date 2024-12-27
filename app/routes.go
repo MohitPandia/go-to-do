@@ -36,6 +36,7 @@ func MapUrl() {
 	router.GET("/api/users/getAll", userHandler.GetAllUsers)
 	router.GET("/api/users/get-by-pid", userHandler.GetUserByPID)
 	router.POST("/api/users/delete", userHandler.DeleteUser)
+	router.PUT("api/users/update", userHandler.UpdateUser)
 
 	err := router.Run(fmt.Sprintf(":%d", 8080)) // config
 	if err != nil {

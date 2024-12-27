@@ -19,6 +19,7 @@ type GormInterface interface {
 	ListUsers(ctx *gin.Context) ([]entities.Users, error)
 	GetUserByPID(ctx *gin.Context, pid string) (entities.Users, error)
 	DeleteUser(ctx *gin.Context, pid string) (entities.Users, error)
+	UpdateUser(ctx *gin.Context, pid string, updatedUser entities.Users) (entities.Users, error)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -95,5 +96,28 @@ func (g *userGormImpl) DeleteUser(c *gin.Context, pid string) (entities.Users, e
 	}
 
 	fmt.Println("User deleted successfully:", user)
+	return user, nil
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 UpdateUser                                 */
+/* -------------------------------------------------------------------------- */
+func (g *userGormImpl) UpdateUser(ctx *gin.Context, pid string, updatedUser entities.Users) (entities.Users, error) {
+	var user entities.Users
+
+	// Check if the user exists
+	if err := g.DB.Where("user_pid = ?", pid).First(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return user, errors.Wrap(err, "user not found")
+		}
+		return user, errors.Wrap(err, "failed to get user by PID")
+	}
+
+	// Update the fields using the provided user object
+	if err := g.DB.Model(&user).Updates(updatedUser).Error; err != nil {
+		return user, errors.Wrap(err, "failed to update user")
+	}
+
+	fmt.Println("User updated successfully:", user)
 	return user, nil
 }

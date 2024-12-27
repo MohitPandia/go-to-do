@@ -23,6 +23,7 @@ type Interface interface {
 	GetAllUsers(ctx *gin.Context, reqBody GetAllUserObject) (models.BaseResponse, []entities.Users, error)
 	GetUserByPID(ctx *gin.Context, reqBody GetUserByPIDObject) (models.BaseResponse, entities.Users, error)
 	DeleteUser(ctx *gin.Context, reqBody DeleteUserObject) (models.BaseResponse, entities.Users, error)
+	UpdateUser(ctx *gin.Context, reqBody map[string]interface{}) (models.BaseResponse, entities.Users, error)
 }
 
 /* -------------------------------------------------------------------------- */

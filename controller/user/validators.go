@@ -83,7 +83,6 @@ func validateGetAllUsers(ctx *gin.Context) (usersvc.GetAllUserObject, error) {
 	return reqBody, nil
 }
 
-
 func validateGetUserByPID(ctx *gin.Context) (usersvc.GetUserByPIDObject, error) {
 	var reqBody usersvc.GetUserByPIDObject
 	var err error
@@ -103,7 +102,6 @@ func validateGetUserByPID(ctx *gin.Context) (usersvc.GetUserByPIDObject, error) 
 	return reqBody, nil
 }
 
-
 func validateDeleteUser(c *gin.Context) (usersvc.DeleteUserObject, error) {
 	var reqBody usersvc.DeleteUserObject
 	var err error
@@ -115,6 +113,42 @@ func validateDeleteUser(c *gin.Context) (usersvc.DeleteUserObject, error) {
 	// Validate that PID is not empty
 	if reqBody.PID == "" {
 		return reqBody, errors.New("user PID is required")
+	}
+
+	return reqBody, nil
+}
+
+func validateUpdateUser(ctx *gin.Context) (map[string]interface{}, error) {
+	var reqBody map[string]interface{}
+	var err error
+
+	fmt.Println("coming in this validator")
+
+	// Bind JSON payload into a map
+	if err = ctx.ShouldBindJSON(&reqBody); err != nil {
+		return nil, err
+	}
+
+	// Initialize a validator instance
+	validate := validator.New()
+
+	// Required field validation for "PID"
+	if pid, ok := reqBody["pid"].(string); !ok || strings.TrimSpace(pid) == "" {
+		return nil, errors.New("user PID is required and must be a non-empty string")
+	}
+
+	// Optional field validation
+	if name, ok := reqBody["name"].(string); ok {
+		if err := validateName(strings.TrimSpace(name)); err != nil {
+			return nil, err
+		}
+	}
+
+	// Additional validations as needed
+	if email, ok := reqBody["email"].(string); ok {
+		if err := validate.Var(email, "email"); err != nil {
+			return nil, errors.New("invalid email format")
+		}
 	}
 
 	return reqBody, nil
