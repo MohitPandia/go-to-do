@@ -45,6 +45,7 @@ func GetAllUsertransformer(baseRes models.BaseResponse, users []entities.Users) 
 	finalRes.Message = baseRes.Message
 	finalRes.StatusCode = baseRes.StatusCode
 	finalRes.Data = usersData
+	finalRes.MetaData = baseRes.MetaData
 
 	return finalRes
 }

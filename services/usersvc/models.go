@@ -18,6 +18,8 @@ type CreateUserObject struct {
 // GetAllUserObject serves as a placeholder for future enhancements,
 // such as filtering or pagination parameters for fetching all users.
 type GetAllUserObject struct {
+	Page  int `json:"page"`
+	Limit int `json:"limit"`
 }
 
 // GetUserByPIDObject represents the request payload for fetching a user by PID.

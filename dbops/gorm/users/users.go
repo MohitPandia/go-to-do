@@ -16,7 +16,7 @@ import (
 /* -------------------------------------------------------------------------- */
 type GormInterface interface {
 	CreateUser(ctx *gin.Context, user entities.Users) (entities.Users, error)
-	ListUsers(ctx *gin.Context) ([]entities.Users, error)
+	ListUsers(ctx *gin.Context, offset, limit int) ([]entities.Users, int64, error)
 	GetUserByPID(ctx *gin.Context, pid string) (entities.Users, error)
 	DeleteUser(ctx *gin.Context, pid string) (entities.Users, error)
 	UpdateUser(ctx *gin.Context, pid string, updatedUser entities.Users) (entities.Users, error)
@@ -48,12 +48,21 @@ func (g *userGormImpl) CreateUser(ctx *gin.Context, user entities.Users) (entiti
 /* -------------------------------------------------------------------------- */
 /*                             List all users.                                */
 /* -------------------------------------------------------------------------- */
-func (g *userGormImpl) ListUsers(c *gin.Context) ([]entities.Users, error) {
+func (g *userGormImpl) ListUsers(c *gin.Context, offset, limit int) ([]entities.Users, int64, error) {
 	var users []entities.Users
-	if err := g.DB.Find(&users).Error; err != nil {
-		return nil, errors.Wrap(err, "failed to list users")
+	var totalCount int64
+
+	// Count total users
+	if err := g.DB.Model(&entities.Users{}).Count(&totalCount).Error; err != nil {
+		return nil, 0, errors.Wrap(err, "failed to count users")
 	}
-	return users, nil
+
+	// Fetch paginated users
+	if err := g.DB.Offset(offset).Limit(limit).Find(&users).Error; err != nil {
+		return nil, 0, errors.Wrap(err, "failed to list users with pagination")
+	}
+
+	return users, totalCount, nil
 }
 
 /* -------------------------------------------------------------------------- */

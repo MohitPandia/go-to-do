@@ -5,6 +5,7 @@ import (
 	"go-to-do/smerrors"
 	"go-to-do/utils"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +15,7 @@ import (
 // 3. Get response from service layer
 // 4. Send Response back with transformers
 
-// 3 thingds asked to do
+// --> 3 things asked to do
 // 1. make the delete soft
 // 2. also give a option to update {use map string interface to update}
 // 3. also in the get all user use pagination
@@ -51,10 +52,22 @@ func (u *userHandler) CreateUser(ctx *gin.Context) {
 
 func (u *userHandler) GetAllUsers(ctx *gin.Context) {
 	// Validate the request
+	// Validate the request
 	reqBody, err := validateGetAllUsers(ctx)
 	if err != nil {
 		smerrors.Validation(ctx, err.Error())
 		return
+	}
+
+	// Extract pagination query params
+	page := ctx.Query("page")
+	limit := ctx.Query("limit")
+
+	if page != "" {
+		reqBody.Page, _ = strconv.Atoi(page)
+	}
+	if limit != "" {
+		reqBody.Limit, _ = strconv.Atoi(limit)
 	}
 
 	// Call the service method
