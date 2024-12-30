@@ -2,7 +2,8 @@ package constants
 
 var Prefix = struct {
 	TraceID     string
-	USER         string
+	USER        string
+	TODO        string
 	OrgAccounts string
 
 	FILE                string
@@ -14,7 +15,8 @@ var Prefix = struct {
 	RULE                string
 	KnowledgeBase       string
 }{
-	USER:                 "user",
+	USER:                "user",
+	TODO:                "todo",
 	OrgAccounts:         "orgacc",
 	TraceID:             "rule-engine-trace-ID-",
 	FILE:                "file",
