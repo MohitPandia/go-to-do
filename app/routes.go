@@ -2,9 +2,12 @@ package app
 
 import (
 	"fmt"
+	"go-to-do/controller/todo"
 	"go-to-do/controller/user"
 	"go-to-do/database"
+	"go-to-do/dbops/gorm/todos"
 	"go-to-do/dbops/gorm/users"
+	"go-to-do/services/todosvc"
 	"go-to-do/services/usersvc"
 
 	"github.com/gin-gonic/gin"
@@ -37,6 +40,12 @@ func MapUrl() {
 	router.GET("/api/users/get-by-pid", userHandler.GetUserByPID)
 	router.POST("/api/users/delete", userHandler.DeleteUser)
 	router.PUT("api/users/update", userHandler.UpdateUser)
+
+	todoGorm := todos.Gorm(gormDB)
+	todosvc := todosvc.Handler(todoGorm)
+	todoHandler := todo.Handler(todosvc)
+
+	router.POST("/api/todo/create", todoHandler.CreateTodo)
 
 	err := router.Run(fmt.Sprintf(":%d", 8080)) // config
 	if err != nil {
