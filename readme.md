@@ -63,7 +63,7 @@ A RESTful Todo Management System built using Go, GORM, and PostgreSQL to handle 
 
 1. Clone the repository:
    ```bash
-   git clone (https://github.com/MohitPandia/go-to-do.git)
+   git clone https://github.com/MohitPandia/go-to-do.git
    cd go-to-do
    ```
 
