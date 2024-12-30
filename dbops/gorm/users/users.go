@@ -88,7 +88,6 @@ func (g *userGormImpl) GetUserByPID(c *gin.Context, pid string) (entities.Users,
 /* -------------------------------------------------------------------------- */
 func (g *userGormImpl) DeleteUser(c *gin.Context, pid string) (entities.Users, error) {
 	var user entities.Users
-	fmt.Println("In gorm method: PID", pid)
 
 	// Check if the user exists
 	if err := g.DB.Where("user_pid = ?", pid).First(&user).Error; err != nil {
@@ -98,13 +97,13 @@ func (g *userGormImpl) DeleteUser(c *gin.Context, pid string) (entities.Users, e
 		return user, errors.Wrap(err, "failed to get user by PID")
 	}
 
-	// Proceed with deletion if user exists
-	if err := g.DB.Where("user_pid = ?", pid).Delete(&user).Error; err != nil {
-		fmt.Println("Error deleting user:", err)
-		return user, errors.Wrap(err, "failed to delete user")
+	// Perform a soft delete
+	if err := g.DB.Delete(&user).Error; err != nil {
+		fmt.Println("Error soft-deleting user:", err)
+		return user, errors.Wrap(err, "failed to soft-delete user")
 	}
 
-	fmt.Println("User deleted successfully:", user)
+	fmt.Println("User soft-deleted successfully:", user)
 	return user, nil
 }
 

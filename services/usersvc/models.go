@@ -38,8 +38,8 @@ type CreateUserRes struct {
 
 // UpdateUserObject represents the request payload for updating a user's details.
 type UpdateUserObject struct {
-	PID      string  `json:"pid" validate:"required"`                   // User PID to identify the user being updated.
-	Name     *string `json:"name" validate:"omitempty,min=3,max=100"`   // Optional: Name must be 3-100 characters long.
-	Email    *string `json:"email" validate:"omitempty,email,max=100"`  // Optional: Email must be valid and max 100 characters.
+	PID      string  `json:"pid" validate:"required"`                     // User PID to identify the user being updated.
+	Name     *string `json:"name" validate:"omitempty,min=3,max=100"`     // Optional: Name must be 3-100 characters long.
+	Email    *string `json:"email" validate:"omitempty,email,max=100"`    // Optional: Email must be valid and max 100 characters.
 	Password *string `json:"password" validate:"omitempty,min=8,max=100"` // Optional: Password must be 8-100 characters long.
 }

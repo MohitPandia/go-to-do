@@ -24,7 +24,6 @@ func (u *UserSvcImpl) DeleteUser(ctx *gin.Context, reqBody DeleteUserObject) (mo
 	if err != nil {
 		return baseRes, user, errors.Wrap(err, "[DeleteUser][DeleteUser]")
 	}
-
 	// Set the response
 	baseRes.Success = true
 	baseRes.Message = "user deleted successfully"
