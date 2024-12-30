@@ -37,14 +37,17 @@ func TestGetAllUsers(t *testing.T) {
 	assert.Empty(t, err)
 
 	// Prepare request body for GetAllUsers
-	reqBody := GetAllUserObject{}
+	reqBody := GetAllUserObject{
+		Page:  1,
+		Limit: 1,
+	}
+
+	// Set query parameters in the context
+	c.Request = httptest.NewRequest(http.MethodGet, "/api/users/getAll?page=1&limit=1", nil)
+	c.Request.Header.Set("Content-Type", "application/json")
+	c.Request.URL.RawQuery = "page=1&limit=1"
 
 	// Call GetAllUsers handler
-	c.Request = &http.Request{
-		Header: make(http.Header),
-	}
-	c.Request.Method = http.MethodGet
-
 	baseRes, res, err := userHandler.GetAllUsers(c, reqBody)
 	assert.Empty(t, err)
 	assert.NotEmpty(t, baseRes)
