@@ -63,8 +63,8 @@ A RESTful Todo Management System built using Go, GORM, and PostgreSQL to handle 
 
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone (https://github.com/MohitPandia/go-to-do.git)
+   cd go-to-do
    ```
 
 2. Install dependencies:
