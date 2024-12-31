@@ -65,3 +65,35 @@ func (t *todoHandler) GetAllTodos(ctx *gin.Context) {
 	finalRes := GetAllTodoTransformer(baseRes, todos)
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                GetTodoByPID                                */
+/* -------------------------------------------------------------------------- */
+func (t *todoHandler) GetTodoByPID(ctx *gin.Context) {
+	// Validate request body
+	reqBody, err := validateGetTodoByPID(ctx)
+	if err != nil {
+		smerrors.Validation(ctx, err.Error())
+		return
+	}
+
+	fmt.Println("reqBody", reqBody)
+	// Call the service method
+	baseRes, todo, err := t.todoSvc.GetTodoByPID(ctx, reqBody)
+	if err != nil {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
+
+	fmt.Println("baseRes", baseRes)
+	fmt.Println("todo", todo)
+	if baseRes.StatusCode != http.StatusOK {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
+
+	// Transform the response
+	finalRes := TransformGetTodoResponse(baseRes, todo)
+	utils.ReturnJSONStruct(ctx, finalRes)
+}

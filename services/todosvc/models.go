@@ -12,3 +12,8 @@ type CreateTodoObject struct {
 	CreatedAt   int       `json:"created_at"`
 	UpdatedAt   int       `json:"updated_at"`
 }
+
+
+type GetTodoByPIDObject struct {
+	PID string `json:"pid" validate:"required"` // PID must be exactly 40 characters long.
+}

@@ -48,7 +48,7 @@ func MapUrl() {
 	router.POST("/api/todo/create", todoHandler.CreateTodo)
 	// router.PUT("api/todo/update", todoHandler.UpdateTodo)
 	router.GET("api/todo/getAllTodo", todoHandler.GetAllTodos)
-	// router.GET("api/todo/getTodo-by-pid", todoHandler.GetTodoByPid)
+	router.GET("api/todo/getTodo-by-pid", todoHandler.GetTodoByPID)
 	// router.POST("/api/todo/delete", todoHandler.deleteTodo)
 
 	err := router.Run(fmt.Sprintf(":%d", 8080)) // config

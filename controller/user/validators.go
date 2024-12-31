@@ -84,6 +84,10 @@ func validateGetAllUsers(ctx *gin.Context) (usersvc.GetAllUserObject, error) {
 	return reqBody, nil
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                            validateGetUserByPID                            */
+/* -------------------------------------------------------------------------- */
 func validateGetUserByPID(ctx *gin.Context) (usersvc.GetUserByPIDObject, error) {
 	var reqBody usersvc.GetUserByPIDObject
 	var err error
