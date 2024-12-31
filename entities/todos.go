@@ -7,7 +7,7 @@ import (
 )
 
 type Todos struct {
-	ID          int            `gorm:"column:todo_Id;primaryKey;autoIncrement"`
+	ID          int            `gorm:"column:todo_id;primaryKey;autoIncrement"`
 	PID         string         `gorm:"column:todos_pid;unique;not null;type:varchar(40)"`
 	UserPID     string         `gorm:"column:user_pid;not null;type:varchar(40)"`
 	CategoryPID string         `gorm:"column:category_pid;not null;type:varchar(40)"`

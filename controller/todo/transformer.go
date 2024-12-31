@@ -51,3 +51,26 @@ func GetAllTodoTransformer(baseRes models.BaseResponse, todos []entities.Todos) 
 
 	return finalRes
 }
+
+/* -------------------------------------------------------------------------- */
+/*                          TransformGetTodoResponse                          */
+/* -------------------------------------------------------------------------- */
+
+func TransformGetTodoResponse(baseRes models.BaseResponse, todo entities.Todos) models.BaseResponse {
+	var finalRes models.BaseResponse
+	var dataRes entities.Todos
+
+	dataRes.UserPID = todo.UserPID
+	dataRes.CategoryPID = todo.CategoryPID
+	dataRes.Title = todo.Title
+	dataRes.Description = todo.Description
+	dataRes.Completed = todo.Completed
+	dataRes.DueDate = todo.DueDate
+
+	finalRes.Success = baseRes.Success
+	finalRes.Message = baseRes.Message
+	finalRes.StatusCode = baseRes.StatusCode
+	finalRes.Data = dataRes
+
+	return finalRes
+}

@@ -6,8 +6,12 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
+/* -------------------------------------------------------------------------- */
+/*                                validateTodo                                */
+/* -------------------------------------------------------------------------- */
 func validateTodo(c *gin.Context) (todosvc.CreateTodoObject, error) {
 	var reqBody todosvc.CreateTodoObject
 	var err error
@@ -21,6 +25,9 @@ func validateTodo(c *gin.Context) (todosvc.CreateTodoObject, error) {
 	return reqBody, err
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             validateGetAllTodos                            */
+/* -------------------------------------------------------------------------- */
 func validateGetAllTodos(ctx *gin.Context) (int, int, error) {
 	// Default values for pagination
 	page := 1
@@ -52,4 +59,26 @@ func validateGetAllTodos(ctx *gin.Context) (int, int, error) {
 	}
 
 	return page, limit, nil
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            validateGetTodoByPID                            */
+/* -------------------------------------------------------------------------- */
+func validateGetTodoByPID(ctx *gin.Context) (todosvc.GetTodoByPIDObject, error) {
+	var reqBody todosvc.GetTodoByPIDObject
+	var err error
+
+	err = ctx.ShouldBindJSON(&reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	// Validate using the validator package
+	validate := validator.New()
+	err = validate.Struct(reqBody)
+	if err != nil {
+		return reqBody, err
+	}
+
+	return reqBody, nil
 }
