@@ -80,6 +80,7 @@ func validateGetAllUsers(ctx *gin.Context) (usersvc.GetAllUserObject, error) {
 		return reqBody, err
 	}
 
+	fmt.Println(reqBody, "reqBody")
 	return reqBody, nil
 }
 

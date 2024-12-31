@@ -36,3 +36,32 @@ func (t *todoHandler) CreateTodo(ctx *gin.Context) {
 	finalRes := createTodoTransformer(baseRes, user)
 	utils.ReturnJSONStruct(ctx, finalRes)
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                 GetAllTodo                                 */
+/* -------------------------------------------------------------------------- */
+
+func (t *todoHandler) GetAllTodos(ctx *gin.Context) {
+	// Validate the request
+	// Validate the request
+	page, limit, err := validateGetAllTodos(ctx)
+	if err != nil {
+		smerrors.Validation(ctx, err.Error())
+		return
+	}
+
+	// Call the service method
+	baseRes, todos, err := t.todoSvc.GetAllTodos(ctx, page, limit)
+	if err != nil {
+		smerrors.InternalServer(ctx, err.Error())
+		return
+	}
+	if baseRes.StatusCode != http.StatusOK {
+		smerrors.HandleServiceCodes(ctx, baseRes)
+		return
+	}
+
+	// Transform the response if needed
+	finalRes := GetAllTodoTransformer(baseRes, todos)
+	utils.ReturnJSONStruct(ctx, finalRes)
+}

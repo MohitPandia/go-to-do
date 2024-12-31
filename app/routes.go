@@ -46,6 +46,10 @@ func MapUrl() {
 	todoHandler := todo.Handler(todosvc)
 
 	router.POST("/api/todo/create", todoHandler.CreateTodo)
+	// router.PUT("api/todo/update", todoHandler.UpdateTodo)
+	router.GET("api/todo/getAllTodo", todoHandler.GetAllTodos)
+	// router.GET("api/todo/getTodo-by-pid", todoHandler.GetTodoByPid)
+	// router.POST("/api/todo/delete", todoHandler.deleteTodo)
 
 	err := router.Run(fmt.Sprintf(":%d", 8080)) // config
 	if err != nil {
@@ -53,80 +57,3 @@ func MapUrl() {
 	}
 
 }
-
-// func main() {
-// 	r := gin.Default()
-
-// 	// PostgreSQL DSN (Data Source Name)
-// 	dsn := "host=localhost user=youruser password=yourpassword dbname=tododb sslmode=disable"
-// 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-// 	if err != nil {
-// 		log.Fatalf("Failed to connect to database: %v", err)
-// 	}
-
-// 	// Migrate the tables
-// 	if err := db.AutoMigrate(&tables.User{}, &tables.Category{}, &tables.Todo{}); err != nil {
-// 		log.Fatalf("Failed to migrate database: %v", err)
-// 	}
-
-// 	// Routes
-// 	r.POST("/api/users", createUser(db))
-// 	r.POST("/api/categories", createCategory(db))
-// 	r.POST("/api/todos", createTodoItem(db))
-
-// 	r.Run(":8080") // Start the server
-// }
-
-// // Handler for creating a user
-// func createUser(db *gorm.DB) gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var user tables.User
-// 		if err := c.ShouldBindJSON(&user); err != nil {
-// 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 			return
-// 		}
-
-// 		if err := db.Create(&user).Error; err != nil {
-// 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to create user"})
-// 			return
-// 		}
-
-// 		c.JSON(http.StatusOK, gin.H{"status": "User created successfully", "user": user})
-// 	}
-// }
-
-// // Handler for creating a category
-// func createCategory(db *gorm.DB) gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var category tables.Category
-// 		if err := c.ShouldBindJSON(&category); err != nil {
-// 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 			return
-// 		}
-
-// 		if err := db.Create(&category).Error; err != nil {
-// 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to create category"})
-// 			return
-// 		}
-
-// 		c.JSON(http.StatusOK, gin.H{"status": "Category created successfully", "category": category})
-// 	}
-// }
-
-// // Handler for creating a todo item
-// func createTodoItem(db *gorm.DB) gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var todo tables.Todo
-// 		if err := c.ShouldBindJSON(&todo); err != nil {
-// 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 			return
-// 		}
-
-// 		if err := db.Create(&todo).Error; err != nil {
-// 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to create todo item"})
-// 			return
-// 		}
-
-// 		c.JSON(http.StatusOK, gin.H{"status": "Todo item created successfully", "todo": todo})
-// 	}
-// }
