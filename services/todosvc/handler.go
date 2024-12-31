@@ -20,6 +20,7 @@ type TodoSvcImpl struct {
 /* -------------------------------------------------------------------------- */
 type Interface interface {
 	CreateTodo(ctx *gin.Context, reqBody CreateTodoObject) (models.BaseResponse, entities.Todos, error)
+	GetAllTodos(ctx *gin.Context, page int, limit int) (models.BaseResponse, []entities.Todos, error)
 }
 
 /* -------------------------------------------------------------------------- */

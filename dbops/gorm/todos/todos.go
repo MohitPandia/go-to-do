@@ -1,6 +1,7 @@
 package todos
 
 import (
+	"fmt"
 	"go-to-do/constants"
 	"go-to-do/entities"
 	"go-to-do/utils"
@@ -15,6 +16,7 @@ import (
 /* -------------------------------------------------------------------------- */
 type GormInterface interface {
 	CreateTodo(ctx *gin.Context, todos entities.Todos) (entities.Todos, error)
+	GetAllTodos(ctx *gin.Context, offset, limit int) ([]entities.Todos, int64, error)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -38,4 +40,25 @@ func (g *todosGormImpl) CreateTodo(ctx *gin.Context, todos entities.Todos) (enti
 		return todos, errors.Wrap(err, "failed to create todo")
 	}
 	return todos, nil
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 GetAllTodo                                 */
+/* -------------------------------------------------------------------------- */
+func (g *todosGormImpl) GetAllTodos(c *gin.Context, offset, limit int) ([]entities.Todos, int64, error) {
+	var todos []entities.Todos
+	var totalCount int64
+
+	// Count total users
+	if err := g.DB.Model(&entities.Todos{}).Count(&totalCount).Error; err != nil {
+		return nil, 0, errors.Wrap(err, "failed to count todo")
+	}
+
+	// Fetch paginated users
+	if err := g.DB.Offset(offset).Limit(limit).Find(&todos).Error; err != nil {
+		return nil, 0, errors.Wrap(err, "failed to list todo with pagination")
+	}
+	fmt.Println("totalCount", totalCount)
+
+	return todos, totalCount, nil
 }
