@@ -12,6 +12,10 @@ import (
 	"github.com/pkg/errors"
 )
 
+
+/* -------------------------------------------------------------------------- */
+/*                               GetTodoDetails                               */
+/* -------------------------------------------------------------------------- */
 func (t *TodoSvcImpl) GetTodoDetails(ctx *gin.Context, reqBody GetTodoByPIDObject) (models.BaseResponse, entities.Todos, entities.Users, error) {
 	var todo entities.Todos
 	var user entities.Users

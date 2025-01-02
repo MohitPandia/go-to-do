@@ -9,6 +9,9 @@ import (
 	"github.com/pkg/errors"
 )
 
+/* -------------------------------------------------------------------------- */
+/*                                 GetAllTodos                                */
+/* -------------------------------------------------------------------------- */
 func (t *TodoSvcImpl) GetAllTodos(ctx *gin.Context, page int, limit int) (models.BaseResponse, []entities.Todos, error) {
 	var todos []entities.Todos
 	var baseRes models.BaseResponse

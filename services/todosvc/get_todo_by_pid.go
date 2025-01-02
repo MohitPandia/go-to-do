@@ -10,6 +10,10 @@ import (
 	"github.com/pkg/errors"
 )
 
+
+/* -------------------------------------------------------------------------- */
+/*                                GetTodoByPID                                */
+/* -------------------------------------------------------------------------- */
 func (u *TodoSvcImpl) GetTodoByPID(ctx *gin.Context, reqBody GetTodoByPIDObject) (models.BaseResponse, entities.Todos, error) {
 	var todo entities.Todos
 	var baseRes models.BaseResponse
