@@ -9,6 +9,9 @@ import (
 	"github.com/pkg/errors"
 )
 
+/* -------------------------------------------------------------------------- */
+/*                                 DeleteUser                                 */
+/* -------------------------------------------------------------------------- */
 func (u *UserSvcImpl) DeleteUser(ctx *gin.Context, reqBody DeleteUserObject) (models.BaseResponse, entities.Users, error) {
 	var user entities.Users
 	var baseRes models.BaseResponse

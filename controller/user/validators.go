@@ -41,7 +41,9 @@ func validateCreateUser(c *gin.Context) (usersvc.CreateUserObject, error) {
 	return reqBody, err
 }
 
-// validateName validates the user name for specific criteria.
+/* -------------------------------------------------------------------------- */
+/*          validateName validates the user name for specific criteria.       */
+/* -------------------------------------------------------------------------- */
 func validateName(name string) error {
 	// Trim leading and trailing whitespace
 	trimmedName := strings.TrimSpace(name)
@@ -62,6 +64,9 @@ func validateName(name string) error {
 	return nil
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             validateGetAllUsers                            */
+/* -------------------------------------------------------------------------- */
 func validateGetAllUsers(ctx *gin.Context) (usersvc.GetAllUserObject, error) {
 	var reqBody usersvc.GetAllUserObject
 	var err error
@@ -107,6 +112,9 @@ func validateGetUserByPID(ctx *gin.Context) (usersvc.GetUserByPIDObject, error) 
 	return reqBody, nil
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             validateDeleteUser                             */
+/* -------------------------------------------------------------------------- */
 func validateDeleteUser(c *gin.Context) (usersvc.DeleteUserObject, error) {
 	var reqBody usersvc.DeleteUserObject
 	var err error
@@ -122,6 +130,11 @@ func validateDeleteUser(c *gin.Context) (usersvc.DeleteUserObject, error) {
 
 	return reqBody, nil
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                             validateUpdateUser                             */
+/* -------------------------------------------------------------------------- */
 
 func validateUpdateUser(ctx *gin.Context) (map[string]interface{}, error) {
 	var reqBody map[string]interface{}

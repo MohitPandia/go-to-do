@@ -10,6 +10,10 @@ import (
 	"github.com/pkg/errors"
 )
 
+
+/* -------------------------------------------------------------------------- */
+/*                                 GetAllUsers                                */
+/* -------------------------------------------------------------------------- */
 func (u *UserSvcImpl) GetAllUsers(ctx *gin.Context, reqBody GetAllUserObject) (models.BaseResponse, []entities.Users, error) {
 	var users []entities.Users
 	var baseRes models.BaseResponse

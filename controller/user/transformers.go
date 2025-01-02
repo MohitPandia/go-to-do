@@ -6,6 +6,10 @@ import (
 	"go-to-do/services/usersvc"
 )
 
+
+/* -------------------------------------------------------------------------- */
+/*                            createUserTransformer                           */
+/* -------------------------------------------------------------------------- */
 func createUserTransformer(baseRes models.BaseResponse, user entities.Users) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var dataRes usersvc.CreateUserObject
@@ -24,6 +28,10 @@ func createUserTransformer(baseRes models.BaseResponse, user entities.Users) mod
 	return finalRes
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                            GetAllUsertransformer                           */
+/* -------------------------------------------------------------------------- */
 func GetAllUsertransformer(baseRes models.BaseResponse, users []entities.Users) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var usersData []entities.Users
@@ -50,6 +58,10 @@ func GetAllUsertransformer(baseRes models.BaseResponse, users []entities.Users) 
 	return finalRes
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                          TransformGetUserResponse                          */
+/* -------------------------------------------------------------------------- */
 func TransformGetUserResponse(baseRes models.BaseResponse, user entities.Users) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var dataRes entities.Users
@@ -66,6 +78,9 @@ func TransformGetUserResponse(baseRes models.BaseResponse, user entities.Users) 
 	return finalRes
 }
 
+/* -------------------------------------------------------------------------- */
+/*                            DeleteUserTransformer                           */
+/* -------------------------------------------------------------------------- */
 func DeleteUserTransformer(baseRes models.BaseResponse, user entities.Users) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var dataRes entities.Users
@@ -83,6 +98,10 @@ func DeleteUserTransformer(baseRes models.BaseResponse, user entities.Users) mod
 
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                            UpdateUserTransformer                           */
+/* -------------------------------------------------------------------------- */
 func UpdateUserTransformer(baseRes models.BaseResponse, updatedUser entities.Users) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var dataRes entities.Users

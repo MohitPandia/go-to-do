@@ -6,6 +6,10 @@ import (
 	"go-to-do/services/todosvc"
 )
 
+
+/* -------------------------------------------------------------------------- */
+/*                            createTodoTransformer                           */
+/* -------------------------------------------------------------------------- */
 func createTodoTransformer(baseRes models.BaseResponse, todo entities.Todos) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var dataRes todosvc.CreateTodoObject
@@ -25,6 +29,10 @@ func createTodoTransformer(baseRes models.BaseResponse, todo entities.Todos) mod
 	return finalRes
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                            GetAllTodoTransformer                           */
+/* -------------------------------------------------------------------------- */
 func GetAllTodoTransformer(baseRes models.BaseResponse, todos []entities.Todos) models.BaseResponse {
 	var finalRes models.BaseResponse
 	var todosData []entities.Todos
