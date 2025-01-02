@@ -22,6 +22,7 @@ type Interface interface {
 	CreateTodo(ctx *gin.Context, reqBody CreateTodoObject) (models.BaseResponse, entities.Todos, error)
 	GetAllTodos(ctx *gin.Context, page int, limit int) (models.BaseResponse, []entities.Todos, error)
 	GetTodoByPID(ctx *gin.Context, reqBody GetTodoByPIDObject) (models.BaseResponse, entities.Todos, error)
+	GetTodoDetails(ctx *gin.Context, reqBody GetTodoByPIDObject) (models.BaseResponse, entities.Todos, entities.Users, error)
 }
 
 /* -------------------------------------------------------------------------- */
